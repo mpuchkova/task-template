@@ -1,6 +1,3 @@
-:root{
-    --white-90: rgba(255,255,255,0.87);
-}
 
 * {
     box-sizing: border-box;
@@ -12,7 +9,7 @@
 
 body{
     min-height: 100vh;
-    background: linear-gradient(113.83deg, #121212 0.59%, #121212 99.74%) ;
+    background: #121212 ;
     display: grid;
     grid-template-columns: 226px 1fr;
     grid-template-rows: min-content 1fr
@@ -24,11 +21,13 @@ body{
     padding: 10px;
     grid-column: 2;
     position: sticky;
+    top: 0;
     background-color:  #121212;
 }
 
 .footer{
-    left: 0; bottom: 0;
+    left: 0; 
+    bottom: 0;
     display: grid;
     width: 100%;
     height: 87px;
@@ -51,13 +50,12 @@ body{
 }
 
 .current-items_info{
-    color: var(--white-90);
+    color: white;
 }
 
 .current-items_image{
     width: 55px;
     height: 55px;
-    background-image: url(../images/2type.jpg);
     background-size: contain;
 }
 
@@ -77,22 +75,17 @@ body{
     width: 140px;
 }
 
-.control-items__player{
-    width: 480px;
-    border-bottom: 3px solid #fff;
-    border-radius: 5px;
-}
-.h1{
-    color: var(--white-90);
-    font-weight: 500;
+.good_evening{
+    color: white;
+    font-weight: 700;
     font-size: 2em;
     margin-top: 15px;
     margin-left: 23px;
 }
 
-.h2{
-    color: var(--white-90);
-    font-weight: 500;
+.your_content{
+    color:white;
+    font-weight: 600;
     font-size: 22px;
     margin-top: 35px;
     margin-left: 23px;
@@ -130,7 +123,7 @@ body{
 
 .box_title{
     margin-left: 15px;
-    color: var(--white-90);
+    color: white;
     font-weight: 1000;
     font-size: 15px;
 }
@@ -138,7 +131,7 @@ body{
 .box_sign{
     width: 150px;
     height: 33px;
-    background-color: rgba(3, 3, 3, 0.582);
+    background-color: rgba(3, 3, 3, 0.5);
     display: flex;
     align-items: center;
     border-radius: 25px;
@@ -147,7 +140,7 @@ body{
 
 .sign{
     margin-left: 10px;
-    color: var(--white-90);
+    color: white;
     font-weight: 900;
 }
 
@@ -159,10 +152,6 @@ body{
     border-radius: 50px;
 }
 
-.content {
-    width: 70%;
-    float: right
-}
 
 .border{
     height: 100%;
@@ -184,9 +173,15 @@ body{
     width: 70px;
 }
 
+.topnav1{
+    height: 30px;
+    width: 70px;
+    margin-right: 700px;
+}
+
 .main_list{
-    color: var(--white-90);
-    font-weight: 500;
+    color: white;
+    font-weight: 700;
     font-size: 12px;
     margin-top: 15px;
     margin-left: 18px;
@@ -198,7 +193,7 @@ body{
     margin-left: 5px;
     width: 180px;
     height: 130px;
-    background-color: rgba(0, 0, 0, 0.582);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -215,7 +210,7 @@ body{
 }
 
 .main_list_mini{
-    color: var(--white-90);
+    color: white;
     font-weight: 500;
     font-size: 12px;
     margin-top: 15px;
@@ -242,7 +237,7 @@ body{
 }
 
 .next_list{
-    color: var(--white-90);
+    color: white;
     font-weight: 200;
     font-size: 8px;
     margin-top: 5px;
@@ -290,7 +285,7 @@ body{
 }
 
 .card_title{
-    color: var(--white-90);
+    color: white;
     font-weight: 1000;
     font-size: 15px;
     margin-left: 20px;
@@ -303,4 +298,7 @@ body{
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 4px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
