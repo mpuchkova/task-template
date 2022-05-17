@@ -112,24 +112,26 @@ body{
     height: 81px;
     background-color: rgba(65, 58, 58, 0.5);
     display: flex;
-    align-items: center;
     margin-top: 15px;
     margin-left: 23px;
     border-radius: 5px;
+    justify-content: space-between;
+    
+    align-items: center;
 }
 
 .box_image{
-    margin-top: 0px;
+    border-right: 800px;
     width: 80px;
     height: 80px;
     border-radius: 5px;
 }
 
 .box_title{
-    margin-left: 15px;
     color: white;
     font-weight: 1000;
     font-size: 15px;
+    border-right: 10px;
 }
 
 .box_sign{
