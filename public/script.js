@@ -71,57 +71,6 @@ function handleAuthorizationResponse(){
     }
 }
 
-function getCode(){
-    let code = null;
-    const queryString = window.location.search;
-    if ( queryString.length > 0 ){
-        const urlParams = new URLSearchParams(queryString);
-        code = urlParams.get('code')
-    }
-    return code;
-}
-
-///Get Current User's Profile
-async function getUserProfile(){
-    access_token = localStorage.getItem('access_token');
-    const headers ={
-        'Content-Type': 'application/json',
-        Autorization : `Bearer ${access_token}`,
-    };
-
-    try{
-        const response = await fetch(`https://api.spotify.com/v1/me`,{
-            method: 'GET',
-            headers: headers,
-        });
-
-        const user = await response.json();
-        
-        return user.id;
-    }   catch (err){
-        console.error('Error',err);
-    }
-};
-
-async function getUserPlaylists(){
-    access_token = localStorage.getItem('access_token');
-    const headers ={
-        'Content-Type': 'application/json',
-        Autorization : `Bearer ${access_token}`,
-    };
-
-    try{
-        const response = await fetch(`https://api.spotify.com/v1/me/playlists?limit=5`,{
-            method: 'GET',
-            headers: headers,
-        });
-        
-        return response.json();
-    }   catch (err){
-        console.error('Error',err);
-    }
-};
-
 const $albums = document.querySelector('#albums');
 
 async function getToken() {
@@ -223,8 +172,6 @@ artist.then((data) => {
     );
   });
 });
-
-
 
 
 const $i = document.querySelector('#i');
