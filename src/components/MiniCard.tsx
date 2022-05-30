@@ -1,5 +1,10 @@
 import React from 'react';
 
+
+/*
+*Компонент для мини карточки
+*@component
+*/ 
 export default function MiniCard(props: { title: string; image: string }) {
   return (
     <div className="box">

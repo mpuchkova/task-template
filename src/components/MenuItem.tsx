@@ -1,5 +1,10 @@
 import React from 'react';
 
+
+/*
+*Компонент для лефтбокс
+*@component
+*/ 
 export default function MenuItem(props: { title: string; image: string }) {
   return (
     <div className="left_box">

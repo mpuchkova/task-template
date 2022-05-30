@@ -1,2 +1,2 @@
-export const client_id = '3609a08b358d4eef8a0990532897a53a';
-export const client_secret = '95b0452b35434bd981a8e634e53aa3da';
+export const client_id = '4aaa74b856d84cfcb24ddbf77cc57935';
+export const client_secret = '8a98aad6afc2450a83c2496e2abc395e';

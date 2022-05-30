@@ -1,5 +1,9 @@
 import React from 'react';
 
+/*
+*Компонент для футера
+*@component
+*/ 
 export default function Footer() {
   return (
     <footer className="footer">

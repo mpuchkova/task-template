@@ -2,6 +2,11 @@ import React from 'react';
 
 import MenuItem from './MenuItem';
 
+
+/*
+*Компонент для общего меню
+*@component
+*/ 
 export default function Menu() {
   return (
     <div className="border">

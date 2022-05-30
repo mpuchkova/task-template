@@ -1,5 +1,9 @@
 import React from 'react';
 
+/*
+*Компонент для 1 карточки
+*@component
+*/ 
 export default function Card(props: { title: string; image: string; desc?: string }) {
   return (
     <div className="card">
