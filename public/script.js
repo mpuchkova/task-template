@@ -1,18 +1,16 @@
-const redirect_uri = "http://localhost:3000/";
-
 const client_id = '4aaa74b856d84cfcb24ddbf77cc57935';
 const client_secret = '8a98aad6afc2450a83c2496e2abc395e';
-
-const AUTHORIZE = "https://accounts.spotify.com/authorize";
-const TOKEN = "https://accounts.spotify.com/api/token";
-const PLAYLISTS = "https://api.spotify.com/v1/me/playlists";
-
-
-var access_token = null;
-var refresh_token = null;
-
+const ARTIST = document.querySelector('#artist');
+const ALBUMS = document.querySelector('#albums');
+const ABOUTME = document.querySelector('#aboutme');
+const SONG = document.querySelector('#song');
+const FORM = document.querySelector('#form');
 
 ///справится с записью в куки не смогла
+/**
+ * получение токена
+ * @returns acess_token
+ */
 async function getToken() {
   try {
     const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -30,11 +28,17 @@ async function getToken() {
   }
 }
 
+/**
+ * 
+ * @param {ссылка дляполучения информации} url 
+ * @param {метоД, который вызывается} method 
+ * @returns 
+ */
 const request = async (url, method) => {
   const token = await getToken();
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer` + token,
+    Authorization: `Bearer ` + token,
   };
 
   try {
@@ -49,12 +53,13 @@ const request = async (url, method) => {
   }
 };
 
-
-const ALBUMS = document.querySelector('#albums');
-
+/**
+ * 
+ * @returns url and method
+ */
 async function getAlbums() {
-  const var_url=`https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?include_groups=appears_on&market=ES&limit=4`;
-  return await request(var_url,'GET');
+  const var_url = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?include_groups=appears_on&market=ES&limit=4`;
+  return await request(var_url, 'GET');
 }
 
 const albums = getAlbums();
@@ -64,7 +69,6 @@ albums.then((data) => {
     ALBUMS.insertAdjacentHTML(
       'beforeend',
       `<div class="card">
-
     <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
     <div class="card_title">${item.name}</div>
     <div class="card_autor">${item.release_date}</div>
@@ -74,11 +78,13 @@ albums.then((data) => {
   });
 });
 
-const ARTIST = document.querySelector('#artist');
-
+/**
+ * 
+ * @returns url and method
+ */
 async function getArtist() {
-  const var_url=`https://api.spotify.com/v1/users/smedjan/playlists?limit=4`;
-  return await request(var_url,'GET');
+  const var_url = `https://api.spotify.com/v1/users/smedjan/playlists?limit=4`;
+  return await request(var_url, 'GET');
 }
 
 const artist = getArtist();
@@ -92,28 +98,29 @@ artist.then((data) => {
     <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
     <div class="card_title">${item.name}</div>
     <div class="card_autor">${item.description}</div>
- 
+
     </div>`,
     );
   });
 });
 
-
-const ABOUTME = document.querySelector('#i');
-
-async function getI() {
-  const var_url=`https://api.spotify.com/v1/users/31dfsiux6jwrxdnm6jf6urevulhy/playlists?limit=4`;
-  return await request(var_url,'GET');
+/**
+ * 
+ * @returns url and method
+ */
+async function getAboutMe() {
+  const var_url = `https://api.spotify.com/v1/users/31dfsiux6jwrxdnm6jf6urevulhy/playlists?limit=4`;
+  return await request(var_url, 'GET');
 }
 
-const i = getI();
+const aboutMe = getAboutMe();
 
-i.then((data) => {
+aboutMe.then((data) => {
   data.items.forEach((item) => {
     ABOUTME.insertAdjacentHTML(
       'beforeend',
       `<div class="card">
- 
+
     <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
     <div class="card_title">${item.name}</div>
     <div class="card_autor">${item.description}</div>
@@ -123,13 +130,13 @@ i.then((data) => {
   });
 });
 
-
-
-const SONG = document.querySelector('#song');
-
+/**
+ * 
+ * @returns url and method
+ */
 async function getSong() {
-  const var_url=`https://api.spotify.com/v1/users/spotify/playlists?limit=6`;
-  return await request(var_url,'GET');
+  const var_url = `https://api.spotify.com/v1/users/spotify/playlists?limit=6`;
+  return await request(var_url, 'GET');
 }
 
 const song = getSong();
@@ -139,7 +146,6 @@ song.then((data) => {
     SONG.insertAdjacentHTML(
       'beforeend',
       `<div class="box">
-    
     <img class="box_image" src="${item.images[0].url}" alt="${item.name}" />
     <div class="box_title">${item.name}</div>
     </div>`,
@@ -147,11 +153,13 @@ song.then((data) => {
   });
 });
 
-const FORM = document.querySelector('#form');
-
+/**
+ * 
+ * @returns url and method
+ */
 async function getForm() {
-  const var_url=`https://api.spotify.com/v1/users/4/playlists?limit=4`;
-  return await request(var_url,'GET');
+  const var_url = `https://api.spotify.com/v1/users/4/playlists?limit=4`;
+  return await request(var_url, 'GET');
 }
 
 const form = getForm();
@@ -161,11 +169,10 @@ form.then((data) => {
     FORM.insertAdjacentHTML(
       'beforeend',
       `<div class="card">
-
     <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
     <div class="card_title">${item.name}</div>
     <div class="card_autor">${item.description}</div>
-   
+
     </div>`,
     );
   });
