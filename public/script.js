@@ -6,39 +6,91 @@ const ABOUTME = document.querySelector('#aboutme');
 const SONG = document.querySelector('#song');
 const FORM = document.querySelector('#form');
 
-///справится с записью в куки не смогла
 /**
- * получение токена
- * @returns acess_token
+ * Получение куки
+ * @returns {string} Значение куки
+ */
+function getCookie() {
+  const cookieName = 'token';
+  const name = cookieName + '=';
+  const cDecoded = decodeURIComponent(document.cookie);
+  const cArr = cDecoded.split('; ');
+  let res;
+  cArr.forEach((val) => {
+    if (val.indexOf(name) === 0) res = val.substring(name.length);
+  });
+
+  return res;
+}
+
+/**
+ * Запись куки
+ * @param {string} name Название куки
+ * @param {string} value Значение куки
+ * @param {object} options Дополнительные параметры
+ */
+function setCookie(name, value, options = {}) {
+  options = {
+    path: '/',
+    SameSite: null,
+    ...options,
+  };
+
+  if (options.expires instanceof Date) {
+    options.expires = options.expires.toUTCString();
+  }
+
+  let updatedCookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+
+  for (let optionKey in options) {
+    updatedCookie += '; ' + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += '=' + optionValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+}
+
+/**
+ * Получение токена
+ * @returns {string} Токен
  */
 async function getToken() {
-  try {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      body: 'grant_type=client_credentials',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
-      },
-    });
-    const token = await response.json();
-    return token.access_token;
-  } catch (e) {
-    console.log(e);
+  if (getCookie()) {
+    return getCookie();
+  } else {
+    try {
+      const response = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        body: 'grant_type=client_credentials',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
+        },
+      });
+      const res = await response.json();
+      setCookie('token', res.access_token, { 'max-age': res.expires_in });
+
+      return getCookie();
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
 /**
- * 
- * @param {ссылка дляполучения информации} url 
- * @param {метоД, который вызывается} method 
- * @returns 
+ * Отправка запроса
+ * @param {string} url Адрес запроса
+ * @param {string} method Метод запроса
+ * @returns {object} Ответ на запрос
  */
-const request = async (url, method) => {
+async function request(url, method = 'GET') {
   const token = await getToken();
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ` + token,
+    Authorization: 'Bearer ' + token,
   };
 
   try {
@@ -51,129 +103,57 @@ const request = async (url, method) => {
   } catch (err) {
     console.error('Error', err);
   }
-};
-
-/**
- * 
- * @returns url and method
- */
-async function getAlbums() {
-  const var_url = `https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?include_groups=appears_on&market=ES&limit=4`;
-  return await request(var_url, 'GET');
 }
 
-const albums = getAlbums();
-
-albums.then((data) => {
-  data.items.forEach((item) => {
-    ALBUMS.insertAdjacentHTML(
-      'beforeend',
-      `<div class="card">
-    <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
-    <div class="card_title">${item.name}</div>
-    <div class="card_autor">${item.release_date}</div>
-
-    </div>`,
-    );
-  });
-});
-
 /**
- * 
- * @returns url and method
+ * Создание карточки
+ * @param {object} response Результат  запроса
+ * @param {HTMLElement} element Элемент для вставки контента
  */
-async function getArtist() {
-  const var_url = `https://api.spotify.com/v1/users/smedjan/playlists?limit=4`;
-  return await request(var_url, 'GET');
+function createCards(response, element) {
+  response.then((data) => {
+    data.items.forEach((item) => {
+      element.insertAdjacentHTML(
+        'beforeend',
+        `<div class="card">
+          <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
+          <div class="card_title">${item.name}</div>
+          <div class="card_autor">${item.release_date}</div>
+        </div>`,
+      );
+    });
+  });
 }
 
-const artist = getArtist();
-
-artist.then((data) => {
-  data.items.forEach((item) => {
-    ARTIST.insertAdjacentHTML(
-      'beforeend',
-      `<div class="card">
-
-    <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
-    <div class="card_title">${item.name}</div>
-    <div class="card_autor">${item.description}</div>
-
-    </div>`,
-    );
-  });
-});
-
 /**
- * 
- * @returns url and method
+ * Создание мини карточки
+ * @param {object} response Результат  запроса
+ * @param {HTMLElement} element Элемент для вставки контента
  */
-async function getAboutMe() {
-  const var_url = `https://api.spotify.com/v1/users/31dfsiux6jwrxdnm6jf6urevulhy/playlists?limit=4`;
-  return await request(var_url, 'GET');
+function createCardsMini(response, element) {
+  response.then((data) => {
+    data.items.forEach((item) => {
+      element.insertAdjacentHTML(
+        'beforeend',
+        `<div class="box">
+          <img class="box_image" src="${item.images[0].url}" alt="${item.name}" />
+          <div class="box_title">${item.name}</div>
+        </div>`,
+      );
+    });
+  });
 }
 
-const aboutMe = getAboutMe();
-
-aboutMe.then((data) => {
-  data.items.forEach((item) => {
-    ABOUTME.insertAdjacentHTML(
-      'beforeend',
-      `<div class="card">
-
-    <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
-    <div class="card_title">${item.name}</div>
-    <div class="card_autor">${item.description}</div>
-
-    </div>`,
-    );
-  });
-});
-
-/**
- * 
- * @returns url and method
- */
-async function getSong() {
-  const var_url = `https://api.spotify.com/v1/users/spotify/playlists?limit=6`;
-  return await request(var_url, 'GET');
-}
-
-const song = getSong();
-
-song.then((data) => {
-  data.items.forEach((item) => {
-    SONG.insertAdjacentHTML(
-      'beforeend',
-      `<div class="box">
-    <img class="box_image" src="${item.images[0].url}" alt="${item.name}" />
-    <div class="box_title">${item.name}</div>
-    </div>`,
-    );
-  });
-});
-
-/**
- * 
- * @returns url and method
- */
-async function getForm() {
-  const var_url = `https://api.spotify.com/v1/users/4/playlists?limit=4`;
-  return await request(var_url, 'GET');
-}
-
-const form = getForm();
-
-form.then((data) => {
-  data.items.forEach((item) => {
-    FORM.insertAdjacentHTML(
-      'beforeend',
-      `<div class="card">
-    <img class="card_image" src="${item.images[0].url}" alt="${item.name}" />
-    <div class="card_title">${item.name}</div>
-    <div class="card_autor">${item.description}</div>
-
-    </div>`,
-    );
-  });
-});
+createCards(
+  request(
+    'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums?include_groups=appears_on&market=ES&limit=4',
+  ),
+  ALBUMS,
+);
+createCards(
+  request('https://api.spotify.com/v1/users/31dfsiux6jwrxdnm6jf6urevulhy/playlists?limit=4'),
+  ABOUTME,
+);
+createCards(request('https://api.spotify.com/v1/users/smedjan/playlists?limit=4'), ARTIST);
+createCards(request('https://api.spotify.com/v1/users/4/playlists?limit=4'), FORM);
+createCardsMini(request('https://api.spotify.com/v1/users/spotify/playlists?limit=6'), SONG);
