@@ -2,36 +2,125 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./script.js" defer></script>
+    <title>Spotify — Веб-плеер</title>
   </head>
+
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <header class="header">
+      <img class="topnav" src="./images/TopNav 1 (1).svg" />
+      <img class="topnav1" src="./images/TopNav 1.svg" />
+      <button class="profile"></button>
+      <div class="box_sign">
+        <img class="sign_image" src="./images/i.svg" />
+        <div class="sign">m.puchkova</div>
+        <img class="play_image" src="./images/Play (2).svg" />
+      </div>
+    </header>
+    <div class="border">
+      <img class="picture" src="./images/spotify.svg" />
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+      <div class="main_list">
+        <div class="main_box">
+          <div class="left_box left_box_glavnaya" href="#">
+            <img class="image" src="./images/home_filled.svg" />
+            <div class="main_list">Главная</div>
+          </div>
+          <div class="left_box left_box_poisk" href="#">
+            <img class="image" src="./images/Vector.svg" />
+            <div class="main_list">Поиск</div>
+          </div>
+          <div class="left_box left_box_media" href="#">
+            <img class="image" src="./images/Library_big.svg" />
+            <div class="main_list">Моя медиатека</div>
+          </div>
+        </div>
+      </div>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+      <div class="main_list">
+        <div class="main_box">
+          <div class="left_box left_box_play">
+            <img class="image" src="./images/plus.svg" />
+            <div class="main_list">Создать плейлист</div>
+          </div>
+          <div class="left_box left_box_loved">
+            <img class="image" src="./images/repit.svg" />
+            <div class="main_list">Любимые треки</div>
+          </div>
+          <div class="left_box left_box_my">
+            <img class="image" src="./images/i.svg" />
+            <div class="main_list">Мои выпуски</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main_list">
+        <div class="main_box_mini">
+          <div class="next_box">
+            <div class="next_list next_list_play">Альбомы</div>
+          </div>
+          <div class="next_box">
+            <div class="next_list next_list_loved">Любимые треки</div>
+          </div>
+          <div class="next_box">
+            <div class="next_list next_list_my">Мои выпуски</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main_list">
+        <div class="main_box">
+          <div class="left_box left_box_download">
+            <img class="image" src="./images/plus.svg" />
+            <div class="main_list_mini">Установить приложение</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="section-playlist">
+      <h1 class="good_evening">Добрый вечер</h1>
+
+      <div class="boxes" id="song"></div>
+
+      <h1 class="your_content">Твои шоу</h1>
+
+      <div class="cards" id="aboutme"></div>
+
+      <h1 class="your_content">Слушаем дальше?</h1>
+
+      <div class="cards" id="albums"></div>
+
+      <h1 class="your_content">Только для тебя, m.puchkova</h1>
+
+      <div class="cards" id="artist"></div>
+
+      <h1 class="your_content">У вас схожие вкусы</h1>
+
+      <div class="cards" id="form"></div>
+    </main>
+    <footer class="footer">
+      <div class="current">
+        <div class="current-items">
+          <img class="current-items_image" src="./images/2type.png" />
+          <div class="current-items_info">
+            <h3 class="current-items__info__title">2 типа людей</h3>
+            <p class="current-items__info__description">Макс Корж</p>
+          </div>
+        </div>
+      </div>
+      <div class="control">
+        <div class="control-items">
+          <div class="control-items__button1"><img src="" /></div>
+          <div class="control-items__button1"><img src="" /></div>
+          <div class="control-items__button1"><img src="" /></div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
